@@ -3,7 +3,7 @@ package cl.uchile.dcc.gwent.Carta;
 /** Una clase que representa la clase Carta
  * La clase Carta se define por su tipo (Unidad o Clima)
  */
-public class Carta (private var tipo: String) {
+class Carta (private var tipo: String) {
   /** Para diferenciar ambos tipos de Cartas se usan 2 constructores:
    * Unidad: se diferencian por la zona en que pueden ser utilizadas y por su clasificación, por
    * lo que tienen 2 campos que las diferencian entre si.
@@ -11,9 +11,9 @@ public class Carta (private var tipo: String) {
    * Clima: si o si se colocan en la zona de clima y tienen un tipo de clima,
    * por lo que sólo tienen un campo que las diferencian de otras cartas de clima.
    */
-  private var _zona: String = None
-  private var _clasificacion: String = None
-  private var _poder: String = None
+  private var _zona: String = null
+  private var _clasificacion: String = null
+  private var _poder: String = null
 
   /** Constructor para el tipo de carta "Unidad"
    * @param tipo

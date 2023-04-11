@@ -18,11 +18,11 @@ class Jugador(private var nombre: String, private var stablero: String,
     cgemas = aCgemas
   }
 
-  def setMazo(aMazo: Mazo): Unit = {
+  def setMazo(aMazo: Array[Carta]): Unit = {
 
   }
 
-  def setMano(aMano: Mano): Unit = {
+  def setMano(aMano: Array[Carta]): Unit = {
 
   }
 
