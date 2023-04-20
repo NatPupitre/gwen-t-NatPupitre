@@ -2,7 +2,7 @@ package cl.uchile.dcc
 
 import gwent.Carta.Carta
 
-class CartaTest extends munit.FunSuite{
+class CartaTest extends munit.FunSuite {
   var carta_1: Carta = null
   var carta_2: Carta = null
   var carta_3: Carta = null
