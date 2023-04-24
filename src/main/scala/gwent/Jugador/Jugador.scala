@@ -6,7 +6,7 @@ import gwent.Carta.Carta
 import scala.collection.mutable.ArrayBuffer
 
 trait Jugador {
-  
+
   def getNombre(): String
   def getStablero(): String
   def getCgemas(): Int
