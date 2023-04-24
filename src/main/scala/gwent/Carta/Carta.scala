@@ -1,37 +1,47 @@
 package cl.uchile.dcc.gwent.Carta;
 
-/** Una clase que representa la clase Carta
- * La clase Carta se define por su tipo (Unidad o Clima)
+/**
+ * La clase abstracta Carta define a las subclases con los campos
+ * en común (nombre y clasificación)
  */
-class Carta (private var tipo: String) {
-  /** Para diferenciar ambos tipos de Cartas se usan 2 constructores:
-   * Unidad: se diferencian por la zona en que pueden ser utilizadas y por su clasificación, por
-   * lo que tienen 2 campos que las diferencian entre si.
-   *
-   * Clima: si o si se colocan en la zona de clima y tienen un tipo de clima,
-   * por lo que sólo tienen un campo que las diferencian de otras cartas de clima.
-   */
-  private var _zona: String = null
-  private var _clasificacion: String = null
-  private var _poder: String = null
+abstract class Carta (private var nombre: String, private var clasificacion: String, private var ubicacion: String) {
 
-  /** Constructor para el tipo de carta "Unidad"
-   * @param tipo
-   * @param zona
-   * @param clasificacion
+  /**
+   * getters
+   * @return
    */
-  def this(tipo: String, zona: String, clasificacion: String) = {
-    this(tipo)
-    _zona = zona
-    _clasificacion = clasificacion
+  def getNombre(): String = {
+    return nombre
   }
 
-  /** Constructor para el tipo de carta "Clima"
-   * @param tipo
-   * @param poder
-   */
-  def this(tipo: String, poder: String) = {
-    this(tipo)
-    _poder = poder
+  def getClasificacion(): String = {
+    return clasificacion
   }
+
+  def getUbicacion(): String = {
+    return ubicacion
+  }
+  /**
+   * setters
+   * @param aNombre
+   * @param aClasificacion
+   */
+  def setNombre(aNombre: String): Unit = {
+    this.nombre = aNombre
+  }
+
+  def setClasificacion(aClasificacion: String): Unit = {
+    this.clasificacion = aClasificacion
+  }
+
+  def setUbicacion(aUbicacion: String): Unit = {
+    this.ubicacion = aUbicacion
+  }
+
+  /**
+   * Método abstracto
+   */
+
+  // def jugarcarta(): Unit   este método se implementará luego cuando veamos la sección 1.4 (efectos)
+
 }
