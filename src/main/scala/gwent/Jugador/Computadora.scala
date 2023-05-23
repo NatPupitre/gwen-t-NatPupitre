@@ -1,24 +1,20 @@
-package cl.uchile.dcc.gwent.Jugador
+package cl.uchile.dcc
+package gwent.Jugador
 
 import cl.uchile.dcc.gwent.Carta.Carta
-import cl.uchile.dcc.gwent.Carta.CartaUnidad
-import cl.uchile.dcc.gwent.Carta.CartaClima
 
 import scala.annotation.meta.param
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random;
 
 /**
- *
+ * 
  * @param nombre
  * @param stablero
  * @param cgemas
  */
-class Computadora(private var nombre: String, private var stablero: String,
-                  private var cgemas: Int) extends Jugador {
-
-  var mano: ArrayBuffer[Carta] = new ArrayBuffer[Carta](100)
-  var mazo: ArrayBuffer[Carta] = new ArrayBuffer[Carta](100)
+class Computadora (nombre: String, stablero: String, cgemas: Int) 
+  extends AbstractJugador (nombre, stablero, cgemas) {
 
   /**
    * CartasEnTablero son arreglos que irán definidos como arreglos en la clase tablero, siendo estos los
@@ -28,45 +24,13 @@ class Computadora(private var nombre: String, private var stablero: String,
   var CCartasEnTableroCuerpo: ArrayBuffer[Carta] = new ArrayBuffer[Carta](100)
   var CCartasEnTableroDistancia: ArrayBuffer[Carta] = new ArrayBuffer[Carta](100)
   var CCartasEnTableroAsedio: ArrayBuffer[Carta] = new ArrayBuffer[Carta](100)
-  var CartasEnTableroClima: ArrayBuffer[Carta] = new ArrayBuffer[Carta](100)
-
-
-  def getNombre(): String = {
-    return nombre
-  }
-
-  def getStablero(): String = {
-    return stablero
-  }
-
-  def getCgemas(): Int = {
-    return cgemas
-  }
-
-  /**
-   * setters para la clase Computadora
-   */
-
-  def setNombre(aNombre: String): Unit = {
-    nombre = aNombre
-  }
-
-  def setStablero(aStablero: String): Unit = {
-    stablero = aStablero
-  }
-
-  def setCgemas(aCgemas: Int): Unit = {
-    cgemas = aCgemas
-  }
-
-
-
-
+  var CCartasEnTableroClima: ArrayBuffer[Carta] = new ArrayBuffer[Carta](100)
+  
   def ColocarCarta(aCarta: Carta): Unit = {
     var i: Int = mano.indexOf(aCarta)
     this.mano.remove(i)
     if (aCarta.getClasificacion() == "Clima") {
-      CartasEnTableroClima :+= aCarta
+      CCartasEnTableroClima :+= aCarta
     } else if (aCarta.getClasificacion() == "Unidad") {
       if (aCarta.getUbicacion() == "Cuerpo") {
         CCartasEnTableroCuerpo :+= aCarta
@@ -77,26 +41,14 @@ class Computadora(private var nombre: String, private var stablero: String,
       }
     }
   }
-
-  override def RobarCarta(): Unit = {
-    var CartaRobada: Carta = this.mazo.last
-    var i: Int = this.mazo.length-1
-    this.mazo.remove(i)
-    this.mano :+= CartaRobada
-  }
-
-  override def BarajarMazo(): Unit = {
-    this.mazo = Random.shuffle(mazo)
-  }
-
   override def equals(o: Any): Boolean = {
     if (this.getClass().getName == o.getClass().getName) {
-      val carta2 = o.asInstanceOf[Computadora]
-      this.nombre == carta2.nombre &&
-      this.stablero == carta2.stablero &&
-      this.cgemas == carta2.cgemas &&
-      this.mano.sameElements(carta2.mano) &&
-      this.mazo.sameElements(carta2.mazo)
+      val Compu = o.asInstanceOf[Computadora]
+      this.nombre == Compu.getNombre() &&
+      this.stablero == Compu.getStablero() &&
+      this.cgemas == Compu.getCgemas() &&
+      this.mano.sameElements(Compu.mano) &&
+      this.mazo.sameElements(Compu.mazo)
     } else false
   }
 

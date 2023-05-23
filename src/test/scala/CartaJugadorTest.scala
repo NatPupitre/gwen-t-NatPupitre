@@ -404,7 +404,7 @@ class CartaJugadorTest extends munit.FunSuite {
      */
 
     //Clase Computadora:
-    hue.CartasEnTableroClima.isEmpty
+    hue.CCartasEnTableroClima.isEmpty
     hue.CCartasEnTableroCuerpo.isEmpty
     hue.CCartasEnTableroDistancia.isEmpty
     hue.CCartasEnTableroDistancia.isEmpty
@@ -432,12 +432,12 @@ class CartaJugadorTest extends munit.FunSuite {
     hue.ColocarCarta(carta_C4)
     assert(hue.mano == ArrayBuffer(carta_U16, carta_U13, carta_U14, carta_C1, carta_C2, carta_U7
                                     /** , carta_C4 */, carta_U2, carta_U3, carta_C7))
-    assert(hue.CartasEnTableroClima == ArrayBuffer(carta_C4))
+    assert(hue.CCartasEnTableroClima == ArrayBuffer(carta_C4))
 
     hue.ColocarCarta(carta_C2)
     assert(hue.mano == ArrayBuffer(carta_U16, carta_U13 , carta_U14, carta_C1 /**, carta_C2 */, carta_U7
                                    /** , carta_C4 */, carta_U2, carta_U3, carta_C7))
-    assert(hue.CartasEnTableroClima == ArrayBuffer(carta_C4, carta_C2))
+    assert(hue.CCartasEnTableroClima == ArrayBuffer(carta_C4, carta_C2))
 
     //hue coloca 2 cartas de Unidad Cuerpo a Cuerpo
     hue.ColocarCarta(carta_U2)
@@ -476,7 +476,7 @@ class CartaJugadorTest extends munit.FunSuite {
      */
 
     //Clase Usuario:
-    gato.CartasEnTableroClima.isEmpty
+    gato.UCartasEnTableroClima.isEmpty
     gato.UCartasEnTableroCuerpo.isEmpty
     gato.UCartasEnTableroDistancia.isEmpty
     gato.UCartasEnTableroDistancia.isEmpty
@@ -504,12 +504,12 @@ class CartaJugadorTest extends munit.FunSuite {
     gato.ColocarCarta(carta_C4)
     assert(gato.mano == ArrayBuffer(carta_U16, carta_U13, carta_U14, carta_C1, carta_C2, carta_U7
                                     /** , carta_C4 */, carta_U2, carta_U3, carta_C7))
-    assert(gato.CartasEnTableroClima == ArrayBuffer(carta_C4))
+    assert(gato.UCartasEnTableroClima == ArrayBuffer(carta_C4))
 
     gato.ColocarCarta(carta_C2)
     assert(gato.mano == ArrayBuffer(carta_U16, carta_U13, carta_U14, carta_C1 /** , carta_C2 */, carta_U7
                                     /** , carta_C4 */, carta_U2, carta_U3, carta_C7))
-    assert(hue.CartasEnTableroClima == ArrayBuffer(carta_C4, carta_C2))
+    assert(hue.CCartasEnTableroClima == ArrayBuffer(carta_C4, carta_C2))
 
     //gato coloca 2 cartas de Unidad Cuerpo a Cuerpo
     gato.ColocarCarta(carta_U2)
@@ -538,6 +538,5 @@ class CartaJugadorTest extends munit.FunSuite {
     assert(gato.mano == ArrayBuffer(/** carta_U16, carta_U13 , */carta_U14, carta_C1 /** , carta_C2 , carta_U7 */
                                     /** , carta_C4 , carta_U2 , carta_U3 */, carta_C7))
     assert(gato.UCartasEnTableroAsedio == ArrayBuffer(carta_U16, carta_U13))
-
   }
 }
