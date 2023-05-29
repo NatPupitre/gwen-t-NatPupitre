@@ -1,7 +1,8 @@
-package cl.uchile.dcc.gwent.Carta;
+package cl.uchile.dcc
+package gwent.Carta
 
-class CartaClima (nombre: String, private var efecto: String)
-                                   extends Carta(nombre, clasificacion = "Clima", "Clima") {
+class CartaClima (nombre: String, clasificacion: String, private var efecto: String)
+                                   extends AbstractCarta(nombre, clasificacion) {
 
 
   /**
