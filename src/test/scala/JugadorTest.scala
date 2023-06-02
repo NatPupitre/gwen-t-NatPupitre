@@ -334,6 +334,19 @@ class JugadorTest extends munit.FunSuite {
     assert(gato.getMano() == manoEsperada2.reverse)
   }
 
+  test("Consultar Mano"){
+    /** luego como sabemos que los otros metodos para agregar cartas a la mano funcionan, solo estableceremos
+     * una mano que tienen en cierto momento del juego los 2 jugadores hue y gato
+     * recordando que la mano que tendrán ambos es:
+     *
+     * manoEsperada = ArrayBuffer(carta_U16, carta_U13, carta_U14, carta_C1, carta_C2,
+     * carta_U7, carta_C4, carta_U2, carta_U3, carta_C7)
+     */
+    gato.setMano(manoEsperada2)
+
+    gato.ConsultarMano()
+  }
+
   test("Colocar Carta") {
 
     //COMPUTADORA

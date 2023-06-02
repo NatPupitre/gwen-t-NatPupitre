@@ -23,7 +23,7 @@ abstract class AbstractCartaUnidad (nombre: String, clasificacion: String, priva
     def getHabilidad(): String = {
         return habilidad
     }
-    
+
     /**
      * setters
      *
@@ -40,7 +40,7 @@ abstract class AbstractCartaUnidad (nombre: String, clasificacion: String, priva
     }
     
     override def toString: String = s"Carta Unidad(nombre=$nombre, clasificación=$clasificacion, fuerza=$fuerza, habilidad=$habilidad)"
-    
+
 
 
     /** equals: verifica que 2 objetos sean iguales */

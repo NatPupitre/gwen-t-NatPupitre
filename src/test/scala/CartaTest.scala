@@ -96,7 +96,7 @@ class CartaTest extends munit.FunSuite {
     assertEquals(carta_U13, carta_U14)
     assert(carta_U13.equals(carta_U14))
 
-    /** equals de la clase Unidad */
+    /** equals de la clase CartaClima */
     assertEquals(carta_C2, carta_C3)
     assert(carta_C2.equals(carta_C3))
     assertEquals(new CartaClima("a", "Clima", "b"),

@@ -23,8 +23,8 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
   private var CartasEnTableroDistancia: ArrayBuffer[CartaT] = new ArrayBuffer[CartaT](100)
   private var CartasEnTableroAsedio: ArrayBuffer[CartaT] = new ArrayBuffer[CartaT](100)
   private var CartasEnTableroClima: ArrayBuffer[CartaT] = new ArrayBuffer[CartaT](100)
-  
-  
+
+
   /** Getters */
   def getNombre(): String = {
     return nombre
@@ -92,7 +92,7 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
     CartasEnTableroClima = tabClima
   }
 
-  
+
   /** RobarCarta(): Permite tomar el ultimo objeto de tipo CartaT del mazo y lo agrega a la mano */
   def RobarCarta(): Unit = {
     var CartaRobada: CartaT = this.mazo.last
@@ -102,7 +102,7 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
   }
 
   /** ColocarCarta(aCarta: CartaT): selecciona una carta de la mano y se agrega a una zona dentro del jugador
-   * que se podría considerar como IMAGINARIA, ya que aun no se aceptan en el tablero, pero indica donde el 
+   * que se podría considerar como IMAGINARIA, ya que aun no se aceptan en el tablero, pero indica donde el
    * jugador desea colocar sus cartas */
   def ColocarCarta(aCarta: CartaT): Unit = {
     var manoActual = this.getMano()
