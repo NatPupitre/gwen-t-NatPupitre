@@ -24,6 +24,8 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
   private var CartasEnTableroAsedio: ArrayBuffer[CartaT] = new ArrayBuffer[CartaT](100)
   private var CartasEnTableroClima: ArrayBuffer[CartaT] = new ArrayBuffer[CartaT](100)
   
+  
+  /** Getters */
   def getNombre(): String = {
     return nombre
   }
@@ -60,46 +62,38 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
     return CartasEnTableroClima
   }
 
-  /**
-   * setters para la clase Computadora
-   */
+  /** Setters */
 
   def setNombre(aNombre: String): Unit = {
     nombre = aNombre
   }
-
   def setStablero(aStablero: String): Unit = {
     stablero = aStablero
   }
-
   def setCgemas(aCgemas: Int): Unit = {
     cgemas = aCgemas
   }
-
   def setMano(aMano: ArrayBuffer[CartaT]): Unit = {
     mano = aMano
   }
-
   def setMazo(aMazo: ArrayBuffer[CartaT]): Unit = {
     mazo = aMazo
   }
-
   def setCartasEnTableroCuerpo(tabCuerpo: ArrayBuffer[CartaT]): Unit = {
     CartasEnTableroCuerpo = tabCuerpo
   }
-
   def setCartasEnTableroDistancia(tabDistancia: ArrayBuffer[CartaT]): Unit = {
     CartasEnTableroDistancia = tabDistancia
   }
-
   def setCartasEnTableroAsedio(tabAsedio: ArrayBuffer[CartaT]): Unit = {
     CartasEnTableroAsedio = tabAsedio
   }
-
   def setCartasEnTableroClima(tabClima: ArrayBuffer[CartaT]): Unit = {
     CartasEnTableroClima = tabClima
   }
 
+  
+  /** RobarCarta(): Permite tomar el ultimo objeto de tipo CartaT del mazo y lo agrega a la mano */
   def RobarCarta(): Unit = {
     var CartaRobada: CartaT = this.mazo.last
     var i: Int = this.mazo.length-1
@@ -107,6 +101,9 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
     this.mano :+= CartaRobada
   }
 
+  /** ColocarCarta(aCarta: CartaT): selecciona una carta de la mano y se agrega a una zona dentro del jugador
+   * que se podría considerar como IMAGINARIA, ya que aun no se aceptan en el tablero, pero indica donde el 
+   * jugador desea colocar sus cartas */
   def ColocarCarta(aCarta: CartaT): Unit = {
     var manoActual = this.getMano()
     var i: Int = manoActual.indexOf(aCarta)
@@ -119,6 +116,7 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
     this.mazo = Random.shuffle(mazo)
   }
 
+  /** equals: Verifica que 2 objetos sean iguales a partir de las clases hijas */
   override def equals(o: Any): Boolean = {
     if (this.getClass().getName == o.getClass().getName) {
       val Jugador2 = o.asInstanceOf[AbstractJugador]
@@ -130,6 +128,7 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
     } else false
   }
 
+  /** hashCode: Retorna el numero que identifica al objeto */
   override def hashCode: Int = {
     val prime = 31
     var result = 1

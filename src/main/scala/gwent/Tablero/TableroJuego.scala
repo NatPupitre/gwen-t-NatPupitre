@@ -6,8 +6,10 @@ import gwent.Carta.CartaT
 import scala.collection.mutable.ArrayBuffer
 import gwent.Jugador.{Computadora, Usuario, Jugador}
 
+/** TableroJuego: representa el tablero del juego y recibe a los 2 jugadores de este como input*/
 class TableroJuego (private val JugadorUsuario: Usuario, private val JugadorComputadora: Computadora){
 
+  //TurnoJugador: Jugador cuyo actual turno es el suyo
   private var TurnoJugador: Jugador = null
 
   // Cartas en la zona del Jugador Computadora
@@ -23,6 +25,9 @@ class TableroJuego (private val JugadorUsuario: Usuario, private val JugadorComp
   // Carta en la zona clima
   private var CartasEnTableroClima: ArrayBuffer[CartaT] = new ArrayBuffer[CartaT](1)
 
+  /** ActualizarCartasTablero(): Los jugadores ya tienen pensadas las cartas que quieren colocar en sus
+   * respectivas zonas las cuales se ven en sus respectivas zonas del tablero dentro de cda jugador,
+   * pero esta función es la que da el permiso para que las cartas sean colocadas realmente en el tablero */
   def ActualizarCartasTablero(): Unit ={
     CCartasEnTableroCuerpo = JugadorComputadora.getCartasEnTableroCuerpo()
     CCartasEnTableroDistancia = JugadorComputadora.getCartasEnTableroDistancia()
@@ -32,6 +37,8 @@ class TableroJuego (private val JugadorUsuario: Usuario, private val JugadorComp
     UCartasEnTableroDistancia = JugadorUsuario.getCartasEnTableroDistancia()
     UCartasEnTableroAsedio = JugadorUsuario.getCartasEnTableroAsedio()
 
+    /** Para la carta clima importa de quien es el turno, ya que el primero que ponga la carta no
+     * permitira que el otro jugador ponga la suya (solo puede haber una carta de clima en la zona) */
     if (CartasEnTableroClima.isEmpty && TurnoJugador == JugadorUsuario){
       CartasEnTableroClima = JugadorUsuario.getCartasEnTableroClima()
     }
@@ -40,14 +47,13 @@ class TableroJuego (private val JugadorUsuario: Usuario, private val JugadorComp
     }
   }
 
+  // Getters
   def getTurnoJugador(): Jugador = {
     return TurnoJugador
   }
-
   def setTurnoJugador(TJ: Jugador): Unit = {
     TurnoJugador = TJ
   }
-
   def getCCartasEnTableroCuerpo(): ArrayBuffer[CartaT] ={
     return CCartasEnTableroCuerpo
   }
@@ -70,6 +76,7 @@ class TableroJuego (private val JugadorUsuario: Usuario, private val JugadorComp
     return CartasEnTableroClima
   }
 
+  // Setters
   def setCCartasEnTableroCuerpo(cartas: ArrayBuffer[CartaT]): Unit = {
     CCartasEnTableroCuerpo = cartas
   }

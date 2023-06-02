@@ -121,6 +121,7 @@ class TableroTest extends munit.FunSuite{
 
   test("Setters y Getters") {
 
+    // Setters para el cambio de cartas en las distintas zonas del tablero
     Tablero.setCCartasEnTableroCuerpo(mazoOrdenado)
     Tablero.setCCartasEnTableroDistancia(mazoOrdenado)
     Tablero.setCCartasEnTableroAsedio(mazoOrdenado)
@@ -128,6 +129,7 @@ class TableroTest extends munit.FunSuite{
     Tablero.setUCartasEnTableroDistancia(mazoOrdenado)
     Tablero.setUCartasEnTableroAsedio(mazoOrdenado)
 
+    // Getters que obtienen los arreglos que representan las zonas del tablero
     assert(Tablero.getCCartasEnTableroCuerpo() == mazoOrdenado)
     assert(Tablero.getCCartasEnTableroDistancia() == mazoOrdenado)
     assert(Tablero.getCCartasEnTableroAsedio() == mazoOrdenado)
@@ -135,9 +137,13 @@ class TableroTest extends munit.FunSuite{
     assert(Tablero.getUCartasEnTableroDistancia() == mazoOrdenado)
     assert(Tablero.getUCartasEnTableroAsedio() == mazoOrdenado)
 
+    /** Cambios y obtención del actual jugador en el tablero por turno */
+    
+    // Turno de hue
     Tablero.setTurnoJugador(hue)
     assert(Tablero.getTurnoJugador() == hue)
-
+    
+    // Turno de gato
     Tablero.setTurnoJugador(gato)
     assert(Tablero.getTurnoJugador() == gato)
   }
@@ -179,6 +185,7 @@ class TableroTest extends munit.FunSuite{
     hue.ColocarCarta(carta_C2)
     assert(hue.getCartasEnTableroClima() == ArrayBuffer(carta_C2))
 
+    /** Verificamos que las cartas colocadas por la computadora se agregaron a sus zonas */
     Tablero.ActualizarCartasTablero()
     assert(Tablero.getCCartasEnTableroDistancia() == ArrayBuffer(carta_U12))
     assert(Tablero.getCCartasEnTableroCuerpo() == ArrayBuffer(carta_U2))
@@ -201,10 +208,11 @@ class TableroTest extends munit.FunSuite{
     gato.ColocarCarta(carta_U16)
     assert(gato.getCartasEnTableroAsedio() == ArrayBuffer(carta_U16))
 
-    // Carta de Clima
+    // Carta de Clima se coloca en la zona que gato PIENSA/QUIERE colocarla 
     gato.ColocarCarta(carta_C7)
     assert(gato.getCartasEnTableroClima() == ArrayBuffer(carta_C7))
 
+    /** Verificamos que las cartas colocadas por el usuario se agregaron a sus zonas */
     Tablero.ActualizarCartasTablero()
     assert(Tablero.getUCartasEnTableroDistancia() == ArrayBuffer(carta_U12))
     assert(Tablero.getUCartasEnTableroCuerpo() == ArrayBuffer(carta_U2))
@@ -218,6 +226,5 @@ class TableroTest extends munit.FunSuite{
     // gato si puede colocar su carta en la zona de clima mientras es su turno
     Tablero.ActualizarCartasTablero()
     assert(Tablero.getCartasEnTableroClima() == ArrayBuffer(carta_C7))
-
   }
 }

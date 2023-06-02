@@ -32,6 +32,8 @@ class CartaClima (nombre: String, clasificacion: String, private var efecto: Str
     this.efecto = aEfecto
   }
 
+  /** ColocarCarta(jugador: Jugador): permite al jugador del input colocar la carta en su respectiva
+   *  zona IMAGINARIA del tablero */
   def ColocarCarta(jugador: Jugador): Unit = {
     var cartas = jugador.getCartasEnTableroClima()
     if (cartas.isEmpty) {
@@ -44,6 +46,8 @@ class CartaClima (nombre: String, clasificacion: String, private var efecto: Str
       jugador. setMano(nuevasCartas)
     }
   }
+
+  /** equals: verifica que 2 objetos sean iguales */
   override def equals(o: Any): Boolean = {
     if (this.getClass().getName == o.getClass().getName) {
       val carta2 = o.asInstanceOf[CartaClima]

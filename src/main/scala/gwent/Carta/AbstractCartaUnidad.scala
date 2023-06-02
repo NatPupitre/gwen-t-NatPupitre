@@ -17,17 +17,13 @@ abstract class AbstractCartaUnidad (nombre: String, clasificacion: String, priva
      *
      * @return
      */
-
-
-
     def getFuerza(): Int = {
         return fuerza
     }
-
     def getHabilidad(): String = {
         return habilidad
     }
-
+    
     /**
      * setters
      *
@@ -35,10 +31,6 @@ abstract class AbstractCartaUnidad (nombre: String, clasificacion: String, priva
      * @param aClasificacion
      * @param aEfecto
      */
-
-
-
-
     def setFuerza(aFuerza: Int): Unit = {
         this.fuerza = aFuerza
     }
@@ -48,13 +40,10 @@ abstract class AbstractCartaUnidad (nombre: String, clasificacion: String, priva
     }
     
     override def toString: String = s"Carta Unidad(nombre=$nombre, clasificación=$clasificacion, fuerza=$fuerza, habilidad=$habilidad)"
+    
 
-    /** esta funcion solo s3erá comentada ya que aun no consideramos el tablero
-     * override def jugarcarta(): Unit = {
-     * return
-     * }
-     */
 
+    /** equals: verifica que 2 objetos sean iguales */
     override def equals(o: Any): Boolean = {
         if (this.getClass().getName == o.getClass().getName) {
             val carta2 = o.asInstanceOf[AbstractCartaUnidad]
