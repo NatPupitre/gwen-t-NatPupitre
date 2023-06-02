@@ -1,6 +1,6 @@
 package cl.uchile.dcc
 
-import gwent.Carta.{Carta, CartaAsedio, CartaClima, CartaCuerpo, CartaDistancia}
+import gwent.Carta.{CartaT, CartaAsedio, CartaClima, CartaCuerpo, CartaDistancia}
 
 
 import scala.collection.mutable.ArrayBuffer

@@ -1,6 +1,8 @@
 package cl.uchile.dcc
 package gwent.Carta
 
+import gwent.Jugador.{Jugador}
+
 class CartaClima (nombre: String, clasificacion: String, private var efecto: String)
                                    extends AbstractCarta(nombre, clasificacion) {
 
@@ -30,6 +32,18 @@ class CartaClima (nombre: String, clasificacion: String, private var efecto: Str
     this.efecto = aEfecto
   }
 
+  def ColocarCarta(jugador: Jugador): Unit = {
+    var cartas = jugador.getCartasEnTableroClima()
+    if (cartas.isEmpty) {
+      cartas :+= this
+      jugador.setCartasEnTableroClima(cartas)
+    } else {
+      println(" Ya hay una carta en la zona de Clima ")
+      var nuevasCartas = jugador.getMano()
+      nuevasCartas :+= this
+      jugador. setMano(nuevasCartas)
+    }
+  }
   override def equals(o: Any): Boolean = {
     if (this.getClass().getName == o.getClass().getName) {
       val carta2 = o.asInstanceOf[CartaClima]

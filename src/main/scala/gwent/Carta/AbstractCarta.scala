@@ -5,7 +5,7 @@ package gwent.Carta
  * La clase abstracta Carta define a las subclases con los campos
  * en común (nombre y clasificación)
  */
-abstract class AbstractCarta (private var nombre: String, private var clasificacion: String) extends Carta {
+abstract class AbstractCarta (private var nombre: String, private var clasificacion: String) extends CartaT {
 
   /**
    * getters
