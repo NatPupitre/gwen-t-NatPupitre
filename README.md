@@ -5,18 +5,12 @@
 This work is licensed under a
 [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/)
 
-Context
-Para esta entrega (tarea 2) se consideró el feedback brindado de la tarea 1, por lo que se agregó una clase 
-abstracta para las cartas de Unidad.
+Contexto
+Para esta entrega parcial se está en proceso de diseño del controlador a partir del State Pattern.
 
-Principalmente se agregó la clase tablero, la cual permite pasar las cartas que los jugadores tenían en sus 
-respectivas zonas IMAGINARIAS mediante el patrón Double Dispatch al tablero con zonas reales dentro del juego 
-mediante la autorización de este a partir del turno de los jugadores.
-
-finalmente se testearon todos los métodos a excepción de los que retornan un print dado que estos se testean mejor 
-solamente observando la salida de estos al ser ejecutados y no mediante testing, con lo cual se obtiene un coverage 
-mayor a 90%, lo que nos indica una mayor confianza en los métodos de las clases y en el como se implementarán para 
-el juego.
+Las funciones del controlador permiten los distintos estados del juego, el cual se observa en el siguiente diagrama
+de estados:
+![img.png](img.png)![img_1.png](img_1.png)
 
 This project's goal is to create a (simplified) clone of the
 [_Gwent_](https://www.playgwent.com/en)card game developed by [_CD PROJEKT RED_](https://cdprojektred.com/en/)
