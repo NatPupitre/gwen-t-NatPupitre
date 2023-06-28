@@ -1,7 +1,9 @@
 package cl.uchile.dcc
 package gwent.Jugador
 
-import gwent.Carta.{AbstractCarta, CartaT, CartaAsedio, CartaClima, CartaCuerpo, CartaDistancia}
+import gwent.Carta.{AbstractCarta, CartaAsedio, CartaClima, CartaCuerpo, CartaDistancia, CartaT}
+
+import cl.uchile.dcc.gwent.Carta.Efectos.Efect
 
 import scala.annotation.meta.param
 import scala.collection.mutable.ArrayBuffer
@@ -25,4 +27,6 @@ class Computadora (nombre: String, stablero: String, cgemas: Int) extends Abstra
 
   /** toString: Retorna un print con las características del objeto */
   override def toString: String = s"Computadora(nombre=$nombre, stablero=$stablero, cgemas=$cgemas)"
+
+
 }

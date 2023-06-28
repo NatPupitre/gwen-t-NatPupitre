@@ -1,6 +1,12 @@
 package cl.uchile.dcc
 package gwent.Carta
 
+import gwent.Jugador.Jugador
+
+import cl.uchile.dcc.gwent.Carta.Efectos.Efect
+
+import scala.collection.mutable.ArrayBuffer
+
 /**
  *
  * @param nombre : Nombre de la carta
@@ -9,7 +15,7 @@ package gwent.Carta
  * @param habilidad :
  */
 abstract class AbstractCartaUnidad (nombre: String, clasificacion: String, private var fuerza: Int,
-                   private var habilidad: String) extends AbstractCarta(nombre, clasificacion) {
+                   efecto: Efect) extends AbstractCarta(nombre, clasificacion, efecto) {
 
 
     /**
@@ -17,11 +23,8 @@ abstract class AbstractCartaUnidad (nombre: String, clasificacion: String, priva
      *
      * @return
      */
-    def getFuerza(): Int = {
+    override def getFuerza(): Int = {
         return fuerza
-    }
-    def getHabilidad(): String = {
-        return habilidad
     }
 
     /**
@@ -31,15 +34,11 @@ abstract class AbstractCartaUnidad (nombre: String, clasificacion: String, priva
      * @param aClasificacion
      * @param aEfecto
      */
-    def setFuerza(aFuerza: Int): Unit = {
+    override def setFuerza(aFuerza: Int): Unit = {
         this.fuerza = aFuerza
     }
-
-    def setHabilidad(aHabilidad: String): Unit = {
-        this.habilidad = aHabilidad
-    }
     
-    override def toString: String = s"Carta Unidad(nombre=$nombre, clasificación=$clasificacion, fuerza=$fuerza, habilidad=$habilidad)"
+    override def toString: String = s"Carta Unidad(nombre=$nombre, clasificación=$clasificacion, fuerza=$fuerza, habilidad=$efecto)"
 
 
 
@@ -50,7 +49,7 @@ abstract class AbstractCartaUnidad (nombre: String, clasificacion: String, priva
             this.getNombre() == carta2.getNombre() &&
               this.getClasificacion() == carta2.getClasificacion() &&
               this.getFuerza() == carta2.getFuerza() &&
-              this.getHabilidad() == carta2.getHabilidad()
+              this.getEfecto() == carta2.getEfecto()
         } else false
     }
 
@@ -60,7 +59,17 @@ abstract class AbstractCartaUnidad (nombre: String, clasificacion: String, priva
         result = prime * result + this.getClass().getName.##
         result = prime * result + nombre.##
         result = prime * result + fuerza.##
-        result = prime * result + habilidad.##
+        result = prime * result + efecto.##
         result
     }
+
+    def NotificarObservadores(aJugador: Jugador): Unit = {
+        aJugador.update(this)
+    }
+
+    /**
+     * Métodos abstracto
+     */
+    def CartasEnFila(jugador: Jugador): ArrayBuffer[CartaT]
+    def ActualizarCartasEnFila(jugador: Jugador, cartasNuevas: ArrayBuffer[CartaT]): Unit
 }

@@ -1,36 +1,16 @@
 package cl.uchile.dcc
 package gwent.Carta
 
-import gwent.Jugador.{Jugador}
+import gwent.Jugador.Jugador
 
-class CartaClima (nombre: String, clasificacion: String, private var efecto: String)
-                                   extends AbstractCarta(nombre, clasificacion) {
+import cl.uchile.dcc.gwent.Carta.Efectos.Efect
 
+import scala.collection.mutable.ArrayBuffer
 
-  /**
-   * getters
-   *
-   * @return
-   */
+class CartaClima (nombre: String, clasificacion: String, efecto: Efect)
+                                   extends AbstractCarta(nombre, clasificacion, efecto) {
 
-
-  def getEfecto(): String = {
-    return efecto
-  }
-
-  /**
-   * setters
-   *
-   * @param aNombre
-   * @param aClasificacion
-   * @param aEfecto
-   */
-
-
-
-  def setEfecto(aEfecto: String): Unit = {
-    this.efecto = aEfecto
-  }
+  private var observadores: ArrayBuffer[Jugador] = new ArrayBuffer[Jugador](2)
 
   /** ColocarCarta(jugador: Jugador): permite al jugador del input colocar la carta en su respectiva
    *  zona IMAGINARIA del tablero */
@@ -69,9 +49,20 @@ class CartaClima (nombre: String, clasificacion: String, private var efecto: Str
 
   override def toString: String = s"Carta Clima(nombre=$nombre, clasificación=Clima, efecto=$efecto)"
 
-  /** esta funcion solo s3erá comentada ya que aun no consideramos el tablero
-   * override def jugarcarta(): Unit = {
-   * return
-   * }
-   */
+  def setObservadores(obs: ArrayBuffer[Jugador]): Unit = {
+    observadores = obs
+  }
+  def NotificarObservadores(aJugador: Jugador): Unit = {
+    observadores.foreach(_.update(this))
+  }
+  def CartasEnFila(jugador: Jugador): ArrayBuffer[CartaT] = {
+    return jugador.getCartasEnTableroClima()
+  }
+
+  def ActualizarCartasEnFila(jugador: Jugador, cartasNuevas: ArrayBuffer[CartaT]): Unit = {
+    jugador.setCartasEnTableroClima(cartasNuevas)
+  }
+
+
+
 }

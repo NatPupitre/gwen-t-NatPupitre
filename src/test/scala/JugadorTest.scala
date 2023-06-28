@@ -1,8 +1,9 @@
 package cl.uchile.dcc
 
-import gwent.Carta.{AbstractCarta, CartaT, CartaAsedio, CartaClima, CartaCuerpo, CartaDistancia}
+import gwent.Carta.{AbstractCarta, CartaAsedio, CartaClima, CartaCuerpo, CartaDistancia, CartaT}
 import gwent.Jugador.{Computadora, Usuario}
 
+import cl.uchile.dcc.gwent.Carta.Efectos.{ClimaDespejado, EscarchaMordiente, LluviaTorrencial, NieblaImpenetrable, RefuerzoMoral, SinEfecto, VinculoEstrecho}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -41,6 +42,15 @@ class JugadorTest extends munit.FunSuite {
   var carta_C6: CartaClima = null
   var carta_C7: CartaClima = null
 
+  // Efectos
+  var SinE: SinEfecto = null
+  var ClimaD: ClimaDespejado = null
+  var EscarchaM: EscarchaMordiente = null
+  var LluviaT: LluviaTorrencial = null
+  var NieblaI: NieblaImpenetrable = null
+  var RefuerzoM: RefuerzoMoral = null
+  var VinculoE: VinculoEstrecho = null
+
   /** El límite de jugadores será 1 de cda uno en la implementación, pero para efectos del testing crearemos
    * cuantos sean necesarios para verificar los métodos
    */
@@ -71,38 +81,46 @@ class JugadorTest extends munit.FunSuite {
 
   override def beforeEach(context: BeforeEach): Unit = {
 
+    ClimaD = new ClimaDespejado
+    EscarchaM = new EscarchaMordiente
+    LluviaT = new LluviaTorrencial
+    NieblaI = new NieblaImpenetrable
+
+    RefuerzoM = new RefuerzoMoral
+    VinculoE = new VinculoEstrecho
+
     /**
      * 18 cartas de Unidad repartidas equitativamente entre las 3 clasificaciones: Cuerpo, Distancia y Asedio
      * 2 cartas de cada 6 cartas de unidad de acuerdo a su clasificación
      * 7 cartas de clima
      * todas con su respectivo input:
      */
-    carta_U1 = new CartaCuerpo("Nombre 1", "Cuerpo", 1, "habilidad 1")
-    carta_U2 = new CartaCuerpo("Nombre igual 2.3", "Cuerpo", 23, "habilidad 2.3")
-    carta_U3 = new CartaCuerpo("Nombre igual 2.3", "Cuerpo", 23, "habilidad 2.3")
-    carta_U4 = new CartaCuerpo("Nombre 4", "Cuerpo", 1, "habilidad 4")
-    carta_U5 = new CartaCuerpo("mismo Nombre", "Cuerpo", 56, "misma habilidad")
-    carta_U6 = new CartaCuerpo("mismo Nombre", "Cuerpo", 56, "misma habilidad")
-    carta_U7 = new CartaDistancia("Nombre igual 7.8", "Distancia", 78, "habilidad 7.8")
-    carta_U8 = new CartaDistancia("Nombre igual 7.8", "Distancia", 78, "habilidad 7.8")
-    carta_U9 = new CartaDistancia("Nombre 1", "Distancia", 9, "habilidad 1")
-    carta_U10 = new CartaDistancia("Nombre 1", "Distancia", 10, "habilidad 1")
-    carta_U11 = new CartaDistancia("Nombre 1", "Distancia", 11, "habilidad 1")
-    carta_U12 = new CartaDistancia("Nombre 1", "Distancia", 12, "habilidad 1")
-    carta_U13 = new CartaAsedio("Nombre igual 13.14", "Asedio", 1314, "habilidad 13.14")
-    carta_U14 = new CartaAsedio("Nombre igual 13.14", "Asedio", 1314, "habilidad 13.14")
-    carta_U15 = new CartaAsedio("Nombre 1", "Asedio", 15, "habilidad 1")
-    carta_U16 = new CartaAsedio("Nombre 1", "Asedio", 16, "habilidad 1")
-    carta_U17 = new CartaAsedio("Nombre 1", "Asedio", 17, "habilidad 1")
-    carta_U18 = new CartaAsedio("Nombre 1", "Asedio", 18, "habilidad 1")
+    carta_U1 = new CartaCuerpo("Nombre 1", "Cuerpo", 1, SinE)
+    carta_U2 = new CartaCuerpo("Nombre igual 2.3", "Cuerpo", 23, RefuerzoM)
+    carta_U3 = new CartaCuerpo("Nombre igual 2.3", "Cuerpo", 23, RefuerzoM)
+    carta_U4 = new CartaCuerpo("Nombre 4", "Cuerpo", 1, SinE)
+    carta_U5 = new CartaCuerpo("mismo Nombre", "Cuerpo", 56, VinculoE)
+    carta_U6 = new CartaCuerpo("mismo Nombre", "Cuerpo", 56, VinculoE)
+    carta_U7 = new CartaDistancia("Nombre igual 7.8", "Distancia", 78, SinE)
+    carta_U8 = new CartaDistancia("Nombre igual 7.8", "Distancia", 78, SinE)
+    carta_U9 = new CartaDistancia("Nombre 1", "Distancia", 9, VinculoE)
+    carta_U10 = new CartaDistancia("Nombre 1", "Distancia", 10, VinculoE)
+    carta_U11 = new CartaDistancia("Nombre 1", "Distancia", 11, VinculoE)
+    carta_U12 = new CartaDistancia("Nombre 1", "Distancia", 12, VinculoE)
+    carta_U13 = new CartaAsedio("Nombre igual 13.14", "Asedio", 1314, VinculoE)
+    carta_U14 = new CartaAsedio("Nombre igual 13.14", "Asedio", 1314, VinculoE)
+    carta_U15 = new CartaAsedio("Nombre 1", "Asedio", 15, VinculoE)
+    carta_U16 = new CartaAsedio("Nombre 1", "Asedio", 16, VinculoE)
+    carta_U17 = new CartaAsedio("Nombre 1", "Asedio", 17, VinculoE)
+    carta_U18 = new CartaAsedio("Nombre 1", "Asedio", 18, VinculoE)
 
-    carta_C1 = new CartaClima("Nombre 1", "Clima", "Habilidad 1")
-    carta_C2 = new CartaClima("Nombre igual 2.3","Clima", "habilidad 2.3")
-    carta_C3 = new CartaClima("Nombre igual 2.3", "Clima", "habilidad 2.3")
-    carta_C4 = new CartaClima("Nombre 4", "Clima", "Efecto 2")
-    carta_C5 = new CartaClima("mismo Nombre", "Clima", "misma habilidad")
-    carta_C6 = new CartaClima("mismo Nombre", "Clima", "misma habilidad")
-    carta_C7 = new CartaClima("Nombre C7", "Clima", "habilidad 7")
+    carta_C1 = new CartaClima("Nombre 1", "Clima", ClimaD)
+    carta_C2 = new CartaClima("Nombre igual 2.3","Clima", EscarchaM)
+    carta_C3 = new CartaClima("Nombre igual 2.3", "Clima", EscarchaM)
+    carta_C4 = new CartaClima("Nombre 4", "Clima", ClimaD)
+    carta_C5 = new CartaClima("mismo Nombre", "Clima", LluviaT)
+    carta_C6 = new CartaClima("mismo Nombre", "Clima", LluviaT)
+    carta_C7 = new CartaClima("Nombre C7", "Clima", NieblaI)
 
     /** El límite de jugadores será 1 de cda uno en la implementación, pero para efectos del testing crearemos
      * cuantos sean necesarios para verificar los métodos

@@ -1,9 +1,13 @@
 package cl.uchile.dcc
 package gwent.Carta
 
-import gwent.Jugador.{Jugador}
-class CartaAsedio (nombre: String, clasificacion: String, fuerza: Int, habilidad: String)
-  extends AbstractCartaUnidad(nombre, clasificacion, fuerza, habilidad) {
+import gwent.Jugador.Jugador
+
+import cl.uchile.dcc.gwent.Carta.Efectos.Efect
+
+import scala.collection.mutable.ArrayBuffer
+class CartaAsedio (nombre: String, clasificacion: String, fuerza: Int, efecto: Efect)
+  extends AbstractCartaUnidad(nombre, clasificacion, fuerza, efecto) {
 
   /** ColocarCarta(jugador: Jugador): permite al jugador del input colocar la carta en su respectiva
    * zona IMAGINARIA del tablero */
@@ -20,5 +24,12 @@ class CartaAsedio (nombre: String, clasificacion: String, fuerza: Int, habilidad
       super.equals(carta2)
     } else false
   }
-  
+
+  def CartasEnFila(jugador: Jugador): ArrayBuffer[CartaT] = {
+    return jugador.getCartasEnTableroAsedio()
+  }
+
+  def ActualizarCartasEnFila(jugador: Jugador, cartasNuevas: ArrayBuffer[CartaT]): Unit = {
+    jugador.setCartasEnTableroAsedio(cartasNuevas)
+  }
 }

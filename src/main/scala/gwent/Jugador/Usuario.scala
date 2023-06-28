@@ -1,7 +1,9 @@
 package cl.uchile.dcc
 package gwent.Jugador
 
-import gwent.Carta.{AbstractCarta, CartaT, CartaAsedio, CartaClima, CartaCuerpo, CartaDistancia}
+import gwent.Carta.{AbstractCarta, CartaAsedio, CartaClima, CartaCuerpo, CartaDistancia, CartaT}
+
+import cl.uchile.dcc.gwent.Carta.Efectos.Efect
 
 import scala.annotation.meta.param
 import scala.collection.mutable.ArrayBuffer
@@ -15,7 +17,7 @@ import scala.util.Random;
  */
 class Usuario (nombre: String, stablero: String, cgemas: Int)
   extends AbstractJugador (nombre, stablero, cgemas) {
-
+  
   /** Permite al usuario ver las cartas en su mano para luego decidir cual jugar, a diferencia de computadora
    * que no requiere consultar su mano */
   def ConsultarMano(): Unit = {

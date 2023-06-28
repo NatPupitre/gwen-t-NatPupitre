@@ -3,6 +3,7 @@ package gwent.Jugador
 
 import gwent.Carta
 
+import cl.uchile.dcc.gwent.Carta.Efectos.Efect
 import cl.uchile.dcc.gwent.Carta.{AbstractCarta, CartaT}
 
 import scala.collection.mutable.ArrayBuffer
@@ -24,8 +25,8 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
   private var CartasEnTableroAsedio: ArrayBuffer[CartaT] = new ArrayBuffer[CartaT](100)
   private var CartasEnTableroClima: ArrayBuffer[CartaT] = new ArrayBuffer[CartaT](100)
 
-
   /** Getters */
+    
   def getNombre(): String = {
     return nombre
   }
@@ -63,7 +64,7 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
   }
 
   /** Setters */
-
+    
   def setNombre(aNombre: String): Unit = {
     nombre = aNombre
   }
@@ -137,5 +138,9 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
     result = prime * result + stablero.##
     result = prime * result + cgemas.##
     result
+  }
+
+  def update(aCarta: CartaT): Unit = {
+    aCarta.getEfecto().AplicarEfecto(this, aCarta)
   }
 }
