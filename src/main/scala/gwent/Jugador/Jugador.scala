@@ -1,9 +1,10 @@
 package cl.uchile.dcc
 package gwent.Jugador
 
-import gwent.Carta.{CartaT}
+import gwent.Carta.CartaT
 
 import cl.uchile.dcc.gwent.Carta.Efectos.Efect
+import cl.uchile.dcc.gwent.Controlador.ControladorJuego
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
@@ -61,7 +62,9 @@ trait Jugador {
 
   def setCartasEnTableroAsedio(tabAsedio: ArrayBuffer[CartaT]): Unit 
 
-  def setCartasEnTableroClima(tabClima: ArrayBuffer[CartaT]): Unit 
+  def setCartasEnTableroClima(tabClima: ArrayBuffer[CartaT]): Unit
+
+  def perderGema(controlador: ControladorJuego): Unit
 
   def RobarCarta(): Unit 
 

@@ -5,12 +5,13 @@ import gwent.Carta
 
 import cl.uchile.dcc.gwent.Carta.Efectos.Efect
 import cl.uchile.dcc.gwent.Carta.{AbstractCarta, CartaT}
+import cl.uchile.dcc.gwent.Controlador.ControladorJuego
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 abstract class AbstractJugador (private var nombre: String, private var stablero: String,
-                       private var cgemas: Int) extends Jugador{
+                       private var cgemas: Int) extends Jugador {
 
   private var mano: ArrayBuffer[CartaT] = new ArrayBuffer[CartaT](100)
   private var mazo: ArrayBuffer[CartaT] = new ArrayBuffer[CartaT](100)
@@ -26,7 +27,7 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
   private var CartasEnTableroClima: ArrayBuffer[CartaT] = new ArrayBuffer[CartaT](100)
 
   /** Getters */
-    
+
   def getNombre(): String = {
     return nombre
   }
@@ -64,31 +65,39 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
   }
 
   /** Setters */
-    
+
   def setNombre(aNombre: String): Unit = {
     nombre = aNombre
   }
+
   def setStablero(aStablero: String): Unit = {
     stablero = aStablero
   }
+
   def setCgemas(aCgemas: Int): Unit = {
     cgemas = aCgemas
   }
+
   def setMano(aMano: ArrayBuffer[CartaT]): Unit = {
     mano = aMano
   }
+
   def setMazo(aMazo: ArrayBuffer[CartaT]): Unit = {
     mazo = aMazo
   }
+
   def setCartasEnTableroCuerpo(tabCuerpo: ArrayBuffer[CartaT]): Unit = {
     CartasEnTableroCuerpo = tabCuerpo
   }
+
   def setCartasEnTableroDistancia(tabDistancia: ArrayBuffer[CartaT]): Unit = {
     CartasEnTableroDistancia = tabDistancia
   }
+
   def setCartasEnTableroAsedio(tabAsedio: ArrayBuffer[CartaT]): Unit = {
     CartasEnTableroAsedio = tabAsedio
   }
+
   def setCartasEnTableroClima(tabClima: ArrayBuffer[CartaT]): Unit = {
     CartasEnTableroClima = tabClima
   }
@@ -97,7 +106,7 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
   /** RobarCarta(): Permite tomar el ultimo objeto de tipo CartaT del mazo y lo agrega a la mano */
   def RobarCarta(): Unit = {
     var CartaRobada: CartaT = this.mazo.last
-    var i: Int = this.mazo.length-1
+    var i: Int = this.mazo.length - 1
     this.mazo.remove(i)
     this.mano :+= CartaRobada
   }
@@ -138,6 +147,13 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
     result = prime * result + stablero.##
     result = prime * result + cgemas.##
     result
+  }
+
+  def perderGema(controlador: ControladorJuego): Unit = {
+    cgemas -= 1
+    if (cgemas == 0){
+      controlador.notificarGemas(this)
+    }
   }
 
   def update(aCarta: CartaT): Unit = {
