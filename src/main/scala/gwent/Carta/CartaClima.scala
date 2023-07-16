@@ -2,8 +2,8 @@ package cl.uchile.dcc
 package gwent.Carta
 
 import gwent.Jugador.Jugador
-
-import cl.uchile.dcc.gwent.Carta.Efectos.Efect
+import cl.uchile.dcc.gwent.Efectos.Efect
+import cl.uchile.dcc.gwent.Tablero.TableroJuego
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -14,18 +14,7 @@ class CartaClima (nombre: String, clasificacion: String, efecto: Efect)
 
   /** ColocarCarta(jugador: Jugador): permite al jugador del input colocar la carta en su respectiva
    *  zona IMAGINARIA del tablero */
-  def ColocarCarta(jugador: Jugador): Unit = {
-    var cartas = jugador.getCartasEnTableroClima()
-    if (cartas.isEmpty) {
-      cartas :+= this
-      jugador.setCartasEnTableroClima(cartas)
-    } else {
-      println(" Ya hay una carta en la zona de Clima ")
-      var nuevasCartas = jugador.getMano()
-      nuevasCartas :+= this
-      jugador. setMano(nuevasCartas)
-    }
-  }
+
 
   /** equals: verifica que 2 objetos sean iguales */
   override def equals(o: Any): Boolean = {
@@ -36,7 +25,6 @@ class CartaClima (nombre: String, clasificacion: String, efecto: Efect)
       this.getEfecto() == carta2.getEfecto()
     } else false
   }
-
 
   override def hashCode: Int = {
     val prime = 31
@@ -52,9 +40,7 @@ class CartaClima (nombre: String, clasificacion: String, efecto: Efect)
   def setObservadores(obs: ArrayBuffer[Jugador]): Unit = {
     observadores = obs
   }
-  def NotificarObservadores(aJugador: Jugador): Unit = {
-    observadores.foreach(_.update(this))
-  }
+
   def CartasEnFila(jugador: Jugador): ArrayBuffer[CartaT] = {
     return jugador.getCartasEnTableroClima()
   }
@@ -63,6 +49,11 @@ class CartaClima (nombre: String, clasificacion: String, efecto: Efect)
     jugador.setCartasEnTableroClima(cartasNuevas)
   }
 
+  def ColocarCarta(jugador: Jugador, tab: TableroJuego): Unit = {
+    this.getEfecto().ColocarCarta(this, tab)
+  }
 
-
+  def copiarCarta(): CartaT = {
+    return new CartaClima (nombre, clasificacion, efecto)
+  }
 }

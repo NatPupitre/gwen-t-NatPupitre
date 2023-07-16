@@ -3,21 +3,14 @@ package gwent.Carta
 
 import gwent.Tablero.TableroJuego
 import gwent.Jugador.Jugador
-
-import cl.uchile.dcc.gwent.Carta.Efectos.Efect
+import cl.uchile.dcc.gwent.Efectos.Efect
 
 import scala.collection.mutable.ArrayBuffer
 
-class CartaCuerpo (nombre: String, clasificacion: String, fuerza: Int, habilidad: Efect) 
-  extends AbstractCartaUnidad(nombre, clasificacion, fuerza, habilidad) {
+class CartaCuerpo (nombre: String, clasificacion: String, fuerza: Int, efecto: Efect)
+  extends AbstractCartaUnidad(nombre, clasificacion, fuerza, efecto) {
 
-  /** ColocarCarta(jugador: Jugador): permite al jugador del input colocar la carta en su respectiva
-   * zona IMAGINARIA del tablero */
-  def ColocarCarta(jugador: Jugador): Unit = {
-    var cartas= jugador.getCartasEnTableroCuerpo()
-    cartas :+= this
-    jugador.setCartasEnTableroCuerpo(cartas)
-  }
+
 
   /** equals: verifica que 2 objetos sean iguales */
   override def equals(o: Any): Boolean = {
@@ -33,5 +26,9 @@ class CartaCuerpo (nombre: String, clasificacion: String, fuerza: Int, habilidad
 
   def ActualizarCartasEnFila(jugador: Jugador, cartasNuevas: ArrayBuffer[CartaT]): Unit = {
     jugador.setCartasEnTableroCuerpo(cartasNuevas)
+  }
+
+  def copiarCarta(): CartaT = {
+    return new CartaCuerpo(this.getNombre(), this.getClasificacion(), this.getFuerza(), this.getEfecto())
   }
 }

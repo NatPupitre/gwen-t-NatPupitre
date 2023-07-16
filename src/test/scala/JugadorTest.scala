@@ -2,12 +2,16 @@ package cl.uchile.dcc
 
 import gwent.Carta.{AbstractCarta, CartaAsedio, CartaClima, CartaCuerpo, CartaDistancia, CartaT}
 import gwent.Jugador.{Computadora, Usuario}
-
-import cl.uchile.dcc.gwent.Carta.Efectos.{ClimaDespejado, EscarchaMordiente, LluviaTorrencial, NieblaImpenetrable, RefuerzoMoral, SinEfecto, VinculoEstrecho}
+import cl.uchile.dcc.gwent.Efectos.EfectosClima.{ClimaDespejado, EscarchaMordiente, LluviaTorrencial, NieblaImpenetrable, ParaTestSInEfectos}
+import cl.uchile.dcc.gwent.Efectos.EfectosUnidad.{RefuerzoMoral, SinEfecto, VinculoEstrecho}
+import cl.uchile.dcc.gwent.Tablero.TableroJuego
 
 import scala.collection.mutable.ArrayBuffer
 
 class JugadorTest extends munit.FunSuite {
+
+  /** Tablero con turnos y registro de cartas a colocar */
+  var Tablero: TableroJuego = null
 
   /**
    * Cartas de una baraja estándar
@@ -43,13 +47,8 @@ class JugadorTest extends munit.FunSuite {
   var carta_C7: CartaClima = null
 
   // Efectos
-  var SinE: SinEfecto = null
-  var ClimaD: ClimaDespejado = null
-  var EscarchaM: EscarchaMordiente = null
-  var LluviaT: LluviaTorrencial = null
-  var NieblaI: NieblaImpenetrable = null
-  var RefuerzoM: RefuerzoMoral = null
-  var VinculoE: VinculoEstrecho = null
+  var Nada1:SinEfecto = null
+  var Nada2: ParaTestSInEfectos = null
 
   /** El límite de jugadores será 1 de cda uno en la implementación, pero para efectos del testing crearemos
    * cuantos sean necesarios para verificar los métodos
@@ -81,13 +80,9 @@ class JugadorTest extends munit.FunSuite {
 
   override def beforeEach(context: BeforeEach): Unit = {
 
-    ClimaD = new ClimaDespejado
-    EscarchaM = new EscarchaMordiente
-    LluviaT = new LluviaTorrencial
-    NieblaI = new NieblaImpenetrable
-
-    RefuerzoM = new RefuerzoMoral
-    VinculoE = new VinculoEstrecho
+    //Efectos
+    Nada1 = new SinEfecto
+    Nada2 = new ParaTestSInEfectos
 
     /**
      * 18 cartas de Unidad repartidas equitativamente entre las 3 clasificaciones: Cuerpo, Distancia y Asedio
@@ -95,32 +90,32 @@ class JugadorTest extends munit.FunSuite {
      * 7 cartas de clima
      * todas con su respectivo input:
      */
-    carta_U1 = new CartaCuerpo("Nombre 1", "Cuerpo", 1, SinE)
-    carta_U2 = new CartaCuerpo("Nombre igual 2.3", "Cuerpo", 23, RefuerzoM)
-    carta_U3 = new CartaCuerpo("Nombre igual 2.3", "Cuerpo", 23, RefuerzoM)
-    carta_U4 = new CartaCuerpo("Nombre 4", "Cuerpo", 1, SinE)
-    carta_U5 = new CartaCuerpo("mismo Nombre", "Cuerpo", 56, VinculoE)
-    carta_U6 = new CartaCuerpo("mismo Nombre", "Cuerpo", 56, VinculoE)
-    carta_U7 = new CartaDistancia("Nombre igual 7.8", "Distancia", 78, SinE)
-    carta_U8 = new CartaDistancia("Nombre igual 7.8", "Distancia", 78, SinE)
-    carta_U9 = new CartaDistancia("Nombre 1", "Distancia", 9, VinculoE)
-    carta_U10 = new CartaDistancia("Nombre 1", "Distancia", 10, VinculoE)
-    carta_U11 = new CartaDistancia("Nombre 1", "Distancia", 11, VinculoE)
-    carta_U12 = new CartaDistancia("Nombre 1", "Distancia", 12, VinculoE)
-    carta_U13 = new CartaAsedio("Nombre igual 13.14", "Asedio", 1314, VinculoE)
-    carta_U14 = new CartaAsedio("Nombre igual 13.14", "Asedio", 1314, VinculoE)
-    carta_U15 = new CartaAsedio("Nombre 1", "Asedio", 15, VinculoE)
-    carta_U16 = new CartaAsedio("Nombre 1", "Asedio", 16, VinculoE)
-    carta_U17 = new CartaAsedio("Nombre 1", "Asedio", 17, VinculoE)
-    carta_U18 = new CartaAsedio("Nombre 1", "Asedio", 18, VinculoE)
+    carta_U1 = new CartaCuerpo("Nombre 1", "Cuerpo", 1, Nada1)
+    carta_U2 = new CartaCuerpo("Nombre igual 2.3", "Cuerpo", 23, Nada1)
+    carta_U3 = new CartaCuerpo("Nombre igual 2.3", "Cuerpo", 23, Nada1)
+    carta_U4 = new CartaCuerpo("Nombre 4", "Cuerpo", 1, Nada1)
+    carta_U5 = new CartaCuerpo("mismo Nombre", "Cuerpo", 56, Nada1)
+    carta_U6 = new CartaCuerpo("mismo Nombre", "Cuerpo", 56, Nada1)
+    carta_U7 = new CartaDistancia("Nombre igual 7.8", "Distancia", 78, Nada1)
+    carta_U8 = new CartaDistancia("Nombre igual 7.8", "Distancia", 78, Nada1)
+    carta_U9 = new CartaDistancia("Nombre 1", "Distancia", 9, Nada1)
+    carta_U10 = new CartaDistancia("Nombre 1", "Distancia", 10, Nada1)
+    carta_U11 = new CartaDistancia("Nombre 1", "Distancia", 11, Nada1)
+    carta_U12 = new CartaDistancia("Nombre 1", "Distancia", 12, Nada1)
+    carta_U13 = new CartaAsedio("Nombre igual 13.14", "Asedio", 1314, Nada1)
+    carta_U14 = new CartaAsedio("Nombre igual 13.14", "Asedio", 1314, Nada1)
+    carta_U15 = new CartaAsedio("Nombre 1", "Asedio", 15, Nada1)
+    carta_U16 = new CartaAsedio("Nombre 1", "Asedio", 16, Nada1)
+    carta_U17 = new CartaAsedio("Nombre 1", "Asedio", 17, Nada1)
+    carta_U18 = new CartaAsedio("Nombre 1", "Asedio", 18, Nada1)
 
-    carta_C1 = new CartaClima("Nombre 1", "Clima", ClimaD)
-    carta_C2 = new CartaClima("Nombre igual 2.3","Clima", EscarchaM)
-    carta_C3 = new CartaClima("Nombre igual 2.3", "Clima", EscarchaM)
-    carta_C4 = new CartaClima("Nombre 4", "Clima", ClimaD)
-    carta_C5 = new CartaClima("mismo Nombre", "Clima", LluviaT)
-    carta_C6 = new CartaClima("mismo Nombre", "Clima", LluviaT)
-    carta_C7 = new CartaClima("Nombre C7", "Clima", NieblaI)
+    carta_C1 = new CartaClima("Nombre 1", "Clima", Nada2)
+    carta_C2 = new CartaClima("Nombre igual 2.3","Clima", Nada2)
+    carta_C3 = new CartaClima("Nombre igual 2.3", "Clima", Nada2)
+    carta_C4 = new CartaClima("Nombre 4", "Clima", Nada2)
+    carta_C5 = new CartaClima("mismo Nombre", "Clima", Nada2)
+    carta_C6 = new CartaClima("mismo Nombre", "Clima", Nada2)
+    carta_C7 = new CartaClima("Nombre C7", "Clima", Nada2)
 
     /** El límite de jugadores será 1 de cda uno en la implementación, pero para efectos del testing crearemos
      * cuantos sean necesarios para verificar los métodos
@@ -163,6 +158,9 @@ class JugadorTest extends munit.FunSuite {
     mazoTrasRobo = ArrayBuffer(carta_U1, carta_C5, carta_C6, carta_U4, carta_U5, carta_U6, carta_C3,
       carta_U8, carta_U9, carta_U10, carta_U11, carta_U12, carta_U17,
       carta_U18, carta_U15)
+
+    /** Tablero con los 2 jugadores */
+    Tablero = new TableroJuego(gato, hue)
   }
 
   test("equals") {
@@ -399,60 +397,63 @@ class JugadorTest extends munit.FunSuite {
     /** verificamos que al colocar una carta esta se agrega al arreglo que representa al tablero y se quita
      * de la mano */
 
+    // turno de Hue
+    Tablero.setTurnoJugador(hue)
+
     //hue coloca 2 cartas de Clima
-    hue.ColocarCarta(carta_C4)
+    hue.ColocarCarta(carta_C4, Tablero)
     assert(hue.getMano() == ArrayBuffer(carta_U16, carta_U13, carta_U14, carta_C1, carta_C2, carta_U7
       /** , carta_C4 */ , carta_U2, carta_U3, carta_C7))
-    assert(hue.getCartasEnTableroClima() == ArrayBuffer(carta_C4))
+    assert(Tablero.getCartasEnTableroClima() == ArrayBuffer(carta_C4))
 
-    hue.ColocarCarta(carta_C2)  // La carta C2 no se juega ya que solo se puede colocar 1 carta clima en el tablero
+    hue.ColocarCarta(carta_C2, Tablero)  // La carta C2 no se juega ya que solo se puede colocar 1 carta clima en el tablero
     assert(hue.getMano() == ArrayBuffer(carta_U16, carta_U13, carta_U14, carta_C1, carta_U7
-      /** , carta_C4 */, carta_U2, carta_U3, carta_C7, carta_C2))
-    assert(hue.getCartasEnTableroClima() == ArrayBuffer(carta_C4))
+      /** , carta_C4 */, carta_U2, carta_U3, carta_C7 /**, carta_C2 */))
+    assert(Tablero.getCartasEnTableroClima() == ArrayBuffer(carta_C2))
 
     //hue coloca 2 cartas de Unidad Cuerpo a Cuerpo
-    hue.ColocarCarta(carta_U2)
+    hue.ColocarCarta(carta_U2, Tablero)
     assert(hue.getMano() == ArrayBuffer(carta_U16, carta_U13, carta_U14, carta_C1
       , carta_U7
 
       /** , carta_C4 , carta_U2 */
-      , carta_U3, carta_C7, carta_C2))
+      , carta_U3, carta_C7 /**, carta_C2 */))
     assert(hue.getCartasEnTableroCuerpo() == ArrayBuffer(carta_U2))
 
-    hue.ColocarCarta(carta_U3)
+    hue.ColocarCarta(carta_U3, Tablero)
     assert(hue.getMano() == ArrayBuffer(carta_U16, carta_U13, carta_U14, carta_C1
       , carta_U7
 
       /** , carta_C4 , carta_U2 , carta_U3 */
-      , carta_C7, carta_C2))
+      , carta_C7 /**, carta_C2 */))
     assert(hue.getCartasEnTableroCuerpo() == ArrayBuffer(carta_U2, carta_U3))
 
     //hue coloca 1 carta de Unidad Distancia
-    hue.ColocarCarta(carta_U7)
+    hue.ColocarCarta(carta_U7, Tablero)
     assert(hue.getMano() == ArrayBuffer(carta_U16, carta_U13, carta_U14, carta_C1
 
       /**  , carta_U7 */
       /** , carta_C4 , carta_U2 , carta_U3 */
-      , carta_C7,carta_C2))
+      , carta_C7 /**,carta_C2 */))
     assert(hue.getCartasEnTableroDistancia() == ArrayBuffer(carta_U7))
 
     //hue coloca 2 cartas de Unidad Asedio
-    hue.ColocarCarta(carta_U16)
+    hue.ColocarCarta(carta_U16, Tablero)
     assert(hue.getMano() == ArrayBuffer(/** carta_U16 , */
       carta_U13, carta_U14, carta_C1
 
       /** , carta_U7 */
       /** , carta_C4 , carta_U2 , carta_U3 */
-      , carta_C7, carta_C2))
+      , carta_C7 /**, carta_C2 */))
     assert(hue.getCartasEnTableroAsedio() == ArrayBuffer(carta_U16))
 
-    hue.ColocarCarta(carta_U13)
+    hue.ColocarCarta(carta_U13, Tablero)
     assert(hue.getMano() == ArrayBuffer(/** carta_U16, carta_U13 , */
       carta_U14, carta_C1
 
       /** , carta_U7 */
       /** , carta_C4 , carta_U2 , carta_U3 */
-      , carta_C7, carta_C2))
+      , carta_C7 /**, carta_C2 */))
     assert(hue.getCartasEnTableroAsedio() == ArrayBuffer(carta_U16, carta_U13))
 
 
@@ -488,67 +489,71 @@ class JugadorTest extends munit.FunSuite {
     /** verificamos que al colocar una carta esta se agrega al arreglo que representa al tablero y se quita
      * de la mano */
 
+    // turno de gato
+    Tablero.setTurnoJugador(gato)
+
     //gato coloca 2 cartas de Clima
-    gato.ColocarCarta(carta_C4)
+    gato.ColocarCarta(carta_C4, Tablero)
     assert(gato.getMano() == ArrayBuffer(carta_U16, carta_U13, carta_U14, carta_C1, carta_C2, carta_U7
 
       /** , carta_C4 */
       , carta_U2, carta_U3, carta_C7))
-    assert(gato.getCartasEnTableroClima() == ArrayBuffer(carta_C4))
+    assert(Tablero.getCartasEnTableroClima() == ArrayBuffer(carta_C4))
+    Tablero.ActualizarCartasTablero()
 
-    gato.ColocarCarta(carta_C2)
+    gato.ColocarCarta(carta_C2, Tablero)
     assert(gato.getMano() == ArrayBuffer(carta_U16, carta_U13, carta_U14, carta_C1
       , carta_U7
 
       /** , carta_C4 */
-      , carta_U2, carta_U3, carta_C7, carta_C2))
-    assert(hue.getCartasEnTableroClima() == ArrayBuffer(carta_C4))
+      , carta_U2, carta_U3, carta_C7 /**, carta_C2 */))
+    assert(Tablero.getCartasEnTableroClima() == ArrayBuffer(carta_C2))
 
     //gato coloca 2 cartas de Unidad Cuerpo a Cuerpo
-    gato.ColocarCarta(carta_U2)
+    gato.ColocarCarta(carta_U2, Tablero)
     assert(gato.getMano() == ArrayBuffer(carta_U16, carta_U13, carta_U14, carta_C1
 
       , carta_U7
 
       /** , carta_C4 , carta_U2 */
-      , carta_U3, carta_C7, carta_C2))
+      , carta_U3, carta_C7/**, carta_C2 */))
     assert(gato.getCartasEnTableroCuerpo() == ArrayBuffer(carta_U2))
 
-    gato.ColocarCarta(carta_U3)
+    gato.ColocarCarta(carta_U3, Tablero)
     assert(gato.getMano() == ArrayBuffer(carta_U16, carta_U13, carta_U14, carta_C1
 
       , carta_U7
 
       /** , carta_C4 , carta_U2 , carta_U3 */
-      , carta_C7, carta_C2))
+      , carta_C7/**, carta_C2 */))
     assert(gato.getCartasEnTableroCuerpo() == ArrayBuffer(carta_U2, carta_U3))
 
     //hue coloca 1 carta de Unidad Distancia
-    gato.ColocarCarta(carta_U7)
+    gato.ColocarCarta(carta_U7, Tablero)
     assert(gato.getMano() == ArrayBuffer(carta_U16, carta_U13, carta_U14, carta_C1
 
       /** , carta_U7 */
       /** , carta_C4 , carta_U2 , carta_U3 */
-      , carta_C7, carta_C2))
+      , carta_C7/**, carta_C2 */))
     assert(gato.getCartasEnTableroDistancia() == ArrayBuffer(carta_U7))
 
     //gato coloca 2 cartas de Unidad Asedio
-    gato.ColocarCarta(carta_U16)
+    gato.ColocarCarta(carta_U16, Tablero)
     assert(gato.getMano() == ArrayBuffer(/** carta_U16 , */
       carta_U13, carta_U14, carta_C1
 
       /** , carta_U7 */
       /** , carta_C4 , carta_U2 , carta_U3 */
-      , carta_C7, carta_C2))
+      , carta_C7/**, carta_C2 */))
     assert(gato.getCartasEnTableroAsedio() == ArrayBuffer(carta_U16))
 
-    gato.ColocarCarta(carta_U13)
+    gato.ColocarCarta(carta_U13, Tablero)
     assert(gato.getMano() == ArrayBuffer(/** carta_U16, carta_U13 , */
       carta_U14, carta_C1
 
       /** , carta_U7 */
       /** , carta_C4 , carta_U2 , carta_U3 */
-      , carta_C7, carta_C2))
+      , carta_C7/**, carta_C2 */))
     assert(gato.getCartasEnTableroAsedio() == ArrayBuffer(carta_U16, carta_U13))
   }
 }

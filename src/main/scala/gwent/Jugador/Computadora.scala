@@ -2,8 +2,7 @@ package cl.uchile.dcc
 package gwent.Jugador
 
 import gwent.Carta.{AbstractCarta, CartaAsedio, CartaClima, CartaCuerpo, CartaDistancia, CartaT}
-
-import cl.uchile.dcc.gwent.Carta.Efectos.Efect
+import cl.uchile.dcc.gwent.Efectos.Efect
 
 import scala.annotation.meta.param
 import scala.collection.mutable.ArrayBuffer

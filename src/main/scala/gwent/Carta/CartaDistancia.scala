@@ -2,20 +2,13 @@ package cl.uchile.dcc
 package gwent.Carta
 
 import gwent.Jugador.Jugador
-
-import cl.uchile.dcc.gwent.Carta.Efectos.Efect
+import cl.uchile.dcc.gwent.Efectos.Efect
+import cl.uchile.dcc.gwent.Efectos.EfectosUnidad.RefuerzoMoral
 
 import scala.collection.mutable.ArrayBuffer
-class CartaDistancia (nombre: String, clasificacion: String, fuerza: Int, habilidad: Efect)
-  extends AbstractCartaUnidad(nombre, clasificacion, fuerza, habilidad) {
+class CartaDistancia (nombre: String, clasificacion: String, fuerza: Int, efecto: Efect)
+  extends AbstractCartaUnidad(nombre, clasificacion, fuerza, efecto) {
 
-  /** ColocarCarta(jugador: Jugador): permite al jugador del input colocar la carta en su respectiva
-   * zona IMAGINARIA del tablero */
-  def ColocarCarta(jugador: Jugador): Unit = {
-    var cartas = jugador.getCartasEnTableroDistancia()
-    cartas :+= this
-    jugador.setCartasEnTableroDistancia(cartas)
-  }
 
   /** equals: verifica que 2 objetos sean iguales */
   override def equals(o: Any): Boolean = {
@@ -31,5 +24,9 @@ class CartaDistancia (nombre: String, clasificacion: String, fuerza: Int, habili
 
   def ActualizarCartasEnFila(jugador: Jugador, cartasNuevas: ArrayBuffer[CartaT]): Unit = {
     jugador.setCartasEnTableroDistancia(cartasNuevas)
+  }
+
+  def copiarCarta(): CartaT = {
+    return new CartaDistancia(this.getNombre(), this.getClasificacion(), this.getFuerza(), this.getEfecto())
   }
 }

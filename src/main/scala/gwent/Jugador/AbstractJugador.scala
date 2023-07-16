@@ -2,10 +2,9 @@ package cl.uchile.dcc
 package gwent.Jugador
 
 import gwent.Carta
-
-import cl.uchile.dcc.gwent.Carta.Efectos.Efect
 import cl.uchile.dcc.gwent.Carta.{AbstractCarta, CartaT}
-import cl.uchile.dcc.gwent.Controlador.ControladorJuego
+import cl.uchile.dcc.gwent.Efectos.Efect
+import cl.uchile.dcc.gwent.Tablero.TableroJuego
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
@@ -114,12 +113,15 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
   /** ColocarCarta(aCarta: CartaT): selecciona una carta de la mano y se agrega a una zona dentro del jugador
    * que se podría considerar como IMAGINARIA, ya que aun no se aceptan en el tablero, pero indica donde el
    * jugador desea colocar sus cartas */
-  def ColocarCarta(aCarta: CartaT): Unit = {
+  def ColocarCarta(aCarta: CartaT, tab: TableroJuego): Unit = {
+    //Quitamos carta de la mano
     var manoActual = this.getMano()
     var i: Int = manoActual.indexOf(aCarta)
     manoActual.remove(i)
     this.setMano(manoActual)
-    aCarta.ColocarCarta(this)
+
+    //Colocamos carta en el tablero según su clasificación
+    aCarta.ColocarCarta(this, tab)
   }
 
   def BarajarMazo(): Unit = {
@@ -149,14 +151,5 @@ abstract class AbstractJugador (private var nombre: String, private var stablero
     result
   }
 
-  def perderGema(controlador: ControladorJuego): Unit = {
-    cgemas -= 1
-    if (cgemas == 0){
-      controlador.notificarGemas(this)
-    }
-  }
 
-  def update(aCarta: CartaT): Unit = {
-    aCarta.getEfecto().AplicarEfecto(this, aCarta)
-  }
 }

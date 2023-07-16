@@ -1,8 +1,9 @@
 package cl.uchile.dcc
 
 import gwent.Carta.{CartaAsedio, CartaClima, CartaCuerpo, CartaDistancia, CartaT}
-
-import cl.uchile.dcc.gwent.Carta.Efectos.{Efect, ClimaDespejado, EscarchaMordiente, LluviaTorrencial, NieblaImpenetrable, RefuerzoMoral, VinculoEstrecho}
+import cl.uchile.dcc.gwent.Efectos.Efect
+import cl.uchile.dcc.gwent.Efectos.EfectosClima.{ClimaDespejado, EscarchaMordiente, LluviaTorrencial, NieblaImpenetrable}
+import cl.uchile.dcc.gwent.Efectos.EfectosUnidad.{RefuerzoMoral, VinculoEstrecho}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -279,5 +280,7 @@ class CartaTest extends munit.FunSuite {
 
     carta_C5.setEfecto(ClimaD)
     assert(carta_C5.getEfecto() == ClimaD)
+
+    carta_C5.setFuerza(7)
   }
 }

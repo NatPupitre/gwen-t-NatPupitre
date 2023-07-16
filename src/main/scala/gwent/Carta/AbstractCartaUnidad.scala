@@ -2,8 +2,8 @@ package cl.uchile.dcc
 package gwent.Carta
 
 import gwent.Jugador.Jugador
-
-import cl.uchile.dcc.gwent.Carta.Efectos.Efect
+import cl.uchile.dcc.gwent.Efectos.Efect
+import cl.uchile.dcc.gwent.Tablero.TableroJuego
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -38,7 +38,7 @@ abstract class AbstractCartaUnidad (nombre: String, clasificacion: String, priva
         this.fuerza = aFuerza
     }
     
-    override def toString: String = s"Carta Unidad(nombre=$nombre, clasificación=$clasificacion, fuerza=$fuerza, habilidad=$efecto)"
+    override def toString: String = s"Carta Unidad(nombre=$nombre, clasificación=$clasificacion, fuerza=$fuerza, efecto=$efecto)"
 
 
 
@@ -63,13 +63,14 @@ abstract class AbstractCartaUnidad (nombre: String, clasificacion: String, priva
         result
     }
 
-    def NotificarObservadores(aJugador: Jugador): Unit = {
-        aJugador.update(this)
+    def ColocarCarta(jugador: Jugador, tab: TableroJuego): Unit = {
+        this.getEfecto().ColocarCarta(jugador, this, tab)
     }
 
     /**
      * Métodos abstracto
      */
+    def copiarCarta(): CartaT
     def CartasEnFila(jugador: Jugador): ArrayBuffer[CartaT]
     def ActualizarCartasEnFila(jugador: Jugador, cartasNuevas: ArrayBuffer[CartaT]): Unit
 }
